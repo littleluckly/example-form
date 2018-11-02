@@ -1,13 +1,25 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <el-button 
+        type="primary" icon="el-icon-edit-outline"
+        @click="handleClick"
+    >注册</el-button>
   </div>
 </template>
 
 <script>
+import register from './components/register'
+import { transform } from './transform'
+
 export default {
-  name: 'App'
+  name: 'App',
+  methods: {
+    register: transform(register),
+
+    handleClick () {
+      this.register()
+    }
+  }
 }
 </script>
 
