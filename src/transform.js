@@ -11,8 +11,7 @@ const inlineListen = ({
   let listener = `on${method}`
   instance[listener] = options[method]
   instance.$on(method, function (data) {
-    const curInstance = this
-    curInstance[listener](data)
+    this[listener](data)
   })
 }
 /**

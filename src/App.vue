@@ -17,7 +17,13 @@ export default {
     register: transform(register),
 
     handleClick () {
-      this.register()
+      this.register({
+        propsData: {
+          name: '皮鞋'
+        },
+
+        done: name => alert(`${name}牛B`)
+      })
     }
   }
 }

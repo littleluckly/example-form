@@ -12,13 +12,6 @@
         <div class="content">
 
             <div class="item">
-                <div class="item-title">手机号</div>
-                <div class="item-content">
-                    <el-input v-model="input" placeholder="请输入内容"></el-input>
-                </div>
-            </div>
-
-            <div class="item">
                 <div class="item-title">姓名</div>
                 <div class="item-content">
                     <el-input v-model="input" placeholder="请输入内容"></el-input>
@@ -39,7 +32,7 @@
         <div class="footer">
             <el-button 
                 type="primary"
-                @click="handleClick"
+                @click="handleClick({ type: 'confirm' })"
             >确定</el-button>
 
             <el-button 
@@ -54,42 +47,38 @@
 </template>
 
 <script>
+import popupWin from '../mixins/popup-win'
+
 export default {
+  mixins: [popupWin],
+
+  props: {
+    name: { type: String, default: '' }
+  },
+
   data () {
     return {
-      isVisible: true,
-
-      input: 'Welcome to Your Vue.js App',
+      input: '',
       gender: 1
     }
   },
-  watch: {
-    isVisible (newValue) {
-      if (!newValue) {
-        // some bug happened
-        this.destroyElement()
-        // this.$el.addEventListener('transitionend', this.destroyElement)
-      }
-    }
-  },
+
   methods: {
     handleClick ({ type }) {
       const handler = {
-        close: () => this.close()
+        close: () => this.close(),
+        confirm: () => {
+          const { name } = this
+          this.$emit('done', name)
+        }
       }
-    },
-    destroyElement () {
-      this.$destroy()
-    },
-    close () {
-      this.isVisible = false
+
+      handler[type] && handler[type]()
     }
   },
-  mounted () {
-    document.body.appendChild(this.$el)
-  },
-  destroyed () {
-    this.$el.parentNode.removeChild(this.$el)
+
+  created () {
+    this.input = this.name
   }
 }
 </script>
