@@ -31,6 +31,18 @@ export const transform = (component) => {
       propsData
     }).$mount(document.createElement('div'))
 
+    // return new Promise((resolve, reject) => {
+
+    //     let instance = new _constructor({
+    //         propsData
+    //     }).$mount(document.createElement('div'))
+
+    //     instance.$on('done', function (data) {
+    //         resolve(data)
+    //     })
+
+    // })
+
     done && inlineListen({
       method: 'done',
       options,

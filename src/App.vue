@@ -22,7 +22,12 @@ export default {
           name: '皮鞋'
         },
 
-        done: name => alert(`${name}牛B`)
+        // done: name => alert(`${name}牛B`)
+        done () {
+            // 外部关闭
+            alert(`${name}牛B`)
+            this.close()
+        }
       })
     }
   }
